@@ -1,0 +1,29 @@
+* {
+  box-sizing: border-box;
+}
+
+.grid-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.grid {
+  height: 600px;
+  width: 600px;
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.grid div {
+  border: 1px solid black;
+  flex-grow: 1;
+  height: 10%;
+  width: 10%;
+}
+
+.snakeImage {
+  background-color: brown;
+}
