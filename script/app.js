@@ -2,11 +2,19 @@ function init() {
   // * Elements
   const grid = document.querySelector(".grid");
   const cells = [];
+
   let snake = [2, 1, 0];
 
   // TODO: Variables
+  let snakeTimer = setInterval(moveSnake, 500);
   let snakeDirection = "right";
-  let applePosition;
+  let snakePosition = 10;
+  const appleTimer = setInterval(apple, 10000);
+  let applePosition = 10;
+  let score = null;
+
+  let snakeSpeed;
+  // let snakeHead = snake[0] + snakePosition;
 
   // TODO: Grid creation
   const width = 10;
@@ -16,6 +24,8 @@ function init() {
     for (let i = 0; i < cellCount; i++) {
       const cell = document.createElement("div");
       cell.textContent = i;
+      cell.classList.add("cell");
+
       grid.append(cell);
       cells.push(cell);
     }
@@ -25,14 +35,27 @@ function init() {
   // * Execution
   // TODO: newCell/Direction
 
-  function getNewCell() {
+  function getNewCell(e) {
     if (snakeDirection === "left") {
+      if (snakePosition % width === 0) {
+        gameOver();
+      }
+
       return snake[0] - 1;
     } else if (snakeDirection === "right") {
+      if (snakePosition % width === width - 1) {
+        gameOver();
+      }
       return snake[0] + 1;
     } else if (snakeDirection === "up") {
+      if (snakePosition <= width) {
+        gameOver();
+      }
       return snake[0] - width;
     } else if (snakeDirection === "down") {
+      if (snakePosition + width >= cellCount) {
+        gameOver();
+      }
       return snake[0] + width;
     } else {
       return `Invalid`;
@@ -44,46 +67,78 @@ function init() {
   function moveSnake() {
     snake.forEach((element) => {
       // ? element = num
+
       cells[element].classList.add("snakeImage");
     });
 
-    const timer = setInterval(() => {
-      //Looks at the current state of dir - returns what the new head position should be
-      let newCell = getNewCell();
-      // let newCellLeft = getNewCell();
+    //Looks at the current state of direction + returns what the new head position should be
+    let newCell = getNewCell();
 
-      let tail = snake.pop();
-      cells[tail].classList.remove("snakeImage");
+    let tail = snake.pop();
+    cells[tail].classList.remove("snakeImage");
 
-      snake.unshift(newCell);
-      cells[newCell].classList.add("snakeImage");
+    snake.unshift(newCell);
 
-      // console.log("test", snake);
-    }, 1000);
+    cells[newCell].classList.add("snakeImage");
+    snakePosition = newCell;
+    console.log(snakePosition);
+    // console.log("test", snake);
   }
 
   moveSnake();
-  // TODO: Keypress event
 
+  // TODO: Apple
+
+  function apple() {
+    cells[applePosition].classList.remove("apple");
+    applePosition = Math.floor(Math.random() * cells.length);
+    cells[applePosition].classList.add("apple");
+  }
+  apple();
+
+  function appleEaten() {
+    if (cells[snakePosition].classList.contains("apple")) {
+      apple();
+      console.log("clicked");
+      // ? Double check this
+      snake.push(snake.length - 1 + 1);
+    }
+  }
+  appleEaten();
+
+  // function gameOver() {
+  //   let confirm = window.confirm("game over - play again?");
+  //   if (confirm) {
+  //     moveSnake();
+  //   } else {
+  //     clearInterval(snakeTimer);
+  //     clearInterval(appleTimer);
+  //   }
+  // }
+  // gameOver();
+
+  // TODO: Keypress event
   function handleKeyUp(e) {
     const key = e.keyCode;
-    const left = 37;
-    const right = 39;
-    const up = 38;
-    const down = 40;
+    let left = 37;
+    let right = 39;
+    let up = 38;
+    let down = 40;
 
-    if (key === left) {
+    if (key === left && snakeDirection !== "right") {
       snakeDirection = "left";
-    } else if (key === right) {
+    } else if (key === right && snakeDirection !== "left") {
       snakeDirection = "right";
-    } else if (key === up) {
+    } else if (key === up && snakeDirection !== "down") {
       snakeDirection = "up";
-    } else if (key === down) {
+    } else if (key === down && snakeDirection !== "up") {
       snakeDirection = "down";
     } else {
       console.log("Invalid key");
     }
   }
+
+  // TODO: Game over
 
   //* Events
   document.addEventListener("keyup", handleKeyUp);

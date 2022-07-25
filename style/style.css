@@ -25,5 +25,10 @@
 }
 
 .snakeImage {
+  /* background-image: url("/images/snake-body.png"); */
   background-color: brown;
+}
+
+.apple {
+  background-image: url("/images/food.png");
 }
