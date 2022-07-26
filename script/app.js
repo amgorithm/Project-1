@@ -3,19 +3,18 @@ function init() {
   const grid = document.querySelector(".grid");
   const cells = [];
   const start = document.querySelector(".start");
+  const scoreDisplay = document.querySelector(".score");
 
   let snake = [2, 1, 0];
 
   // TODO: Variables
-  let snakeTimer = setInterval(moveSnake, 500);
+  let snakeSpeed = 400;
+  let snakeTimer = setInterval(moveSnake, snakeSpeed);
   let snakeDirection = "right";
   let snakePosition = 10;
-  let appleTimer = setInterval(apple, 10000);
+  let appleTimer = setInterval(apple, 20000);
   let applePosition = 10;
   let score = null;
-
-  let snakeSpeed;
-  // let snakeHead = snake[0] + snakePosition;
 
   // TODO: Grid creation
   const width = 10;
@@ -78,6 +77,12 @@ function init() {
 
     cells[newCell].classList.add("snakeImage");
     snakePosition = newCell;
+    appleEaten();
+    let snakebody = snake.slice(1);
+
+    if (snakebody.includes(snakePosition)) {
+      gameOver();
+    }
   }
 
   // TODO: Apple
@@ -89,21 +94,22 @@ function init() {
   }
   apple();
 
-  // ! Error
-
   function appleEaten() {
-    if (
-      // cells[applePosition].classList.contains("apple") &&
-      // cells[snakePosition].classList.contains("snakeImages")
-      applePosition === snakePosition
-    ) {
+    if (applePosition === snakePosition) {
       console.log("same position");
       // ? Double check this
       snake.push(snake.length - 1 + 1);
+      score += 100;
+      scoreDisplay.textContent = score;
+      console.log(snakeSpeed);
+      // clearInterval(moveSnake);
+
+      // snakeSpeed = snakeSpeed - 5;
+
+      // snakeTimer = setInterval(moveSnake, snakeSpeed);
       apple();
     }
   }
-  appleEaten();
 
   // TODO: Keypress event
   function handleKeyUp(e) {
@@ -154,10 +160,22 @@ function init() {
   // TODO: Game over
 
   function gameOver() {
+    snake.forEach((element) => {
+      cells[element].classList.remove("snakeImage");
+    });
     clearInterval(snakeTimer);
     clearInterval(appleTimer);
     window.alert("wall hit");
   }
+
+  // function selfCrash() {
+  //   if (
+  //     snake[0] &&
+  //     cells[snakePosition].classList.contains("snakeImage")
+  //   ) {
+  //     gameOver();
+  //   }
+  // }
 
   //* Events
   document.addEventListener("keyup", handleKeyUp);
