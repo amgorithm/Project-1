@@ -78,11 +78,8 @@ function init() {
     cells[newCell].classList.add("snakeImage");
     snakePosition = newCell;
     appleEaten();
-    let snakebody = snake.slice(1);
 
-    if (snakebody.includes(snakePosition)) {
-      gameOver();
-    }
+    selfCrash();
   }
 
   // TODO: Apple
@@ -163,19 +160,24 @@ function init() {
     snake.forEach((element) => {
       cells[element].classList.remove("snakeImage");
     });
+
     clearInterval(snakeTimer);
     clearInterval(appleTimer);
-    window.alert("wall hit");
+    let confirm = window.confirm(
+      `Game over - you scored ${score}. Play again?`
+    );
+    if (confirm) {
+      location.reload();
+    }
   }
 
-  // function selfCrash() {
-  //   if (
-  //     snake[0] &&
-  //     cells[snakePosition].classList.contains("snakeImage")
-  //   ) {
-  //     gameOver();
-  //   }
-  // }
+  function selfCrash() {
+    let snakeBody = snake.slice(1);
+
+    if (snakeBody.includes(snakePosition)) {
+      gameOver();
+    }
+  }
 
   //* Events
   document.addEventListener("keyup", handleKeyUp);
