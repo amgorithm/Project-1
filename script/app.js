@@ -2,19 +2,20 @@ function init() {
   // * Elements
   const grid = document.querySelector(".grid");
   const cells = [];
-  const start = document.querySelector(".start");
+  const start = document.querySelector("#start");
   const scoreDisplay = document.querySelector(".score");
 
   let snake = [2, 1, 0];
 
   // TODO: Variables
   let snakeSpeed = 400;
-  let snakeTimer = setInterval(moveSnake, snakeSpeed);
+  let snakeTimer;
   let snakeDirection = "right";
   let snakePosition = 10;
-  let appleTimer = setInterval(apple, 20000);
+  let appleTimer;
   let applePosition = 10;
-  let score = null;
+  let score = 0;
+  let gameStarted = false;
 
   // TODO: Grid creation
   const width = 10;
@@ -34,6 +35,18 @@ function init() {
 
   // * Execution
   // TODO: newCell/Direction
+
+  function startGame() {
+    gameStarted = true;
+    if (gameStarted) {
+      appleTimer = setInterval(apple, 20000);
+      snakeTimer = setInterval(moveSnake, snakeSpeed);
+
+      // apple();
+      // moveSnake();
+      console.log("clicked");
+    }
+  }
 
   function getNewCell() {
     if (snakeDirection === "left") {
@@ -110,47 +123,49 @@ function init() {
 
   // TODO: Keypress event
   function handleKeyUp(e) {
-    const key = e.keyCode;
-    let left = 37;
-    let right = 39;
-    let up = 38;
-    let down = 40;
+    if (gameStarted) {
+      const key = e.keyCode;
+      let left = 37;
+      let right = 39;
+      let up = 38;
+      let down = 40;
 
-    if (key === left && snakeDirection !== "right") {
-      snakeDirection = "left";
-    } else if (key === right && snakeDirection !== "left") {
-      snakeDirection = "right";
-    } else if (key === up && snakeDirection !== "down") {
-      snakeDirection = "up";
-    } else if (key === down && snakeDirection !== "up") {
-      snakeDirection = "down";
-    } else {
-      console.log("Invalid key");
-    }
+      if (key === left && snakeDirection !== "right") {
+        snakeDirection = "left";
+      } else if (key === right && snakeDirection !== "left") {
+        snakeDirection = "right";
+      } else if (key === up && snakeDirection !== "down") {
+        snakeDirection = "up";
+      } else if (key === down && snakeDirection !== "up") {
+        snakeDirection = "down";
+      } else {
+        console.log("Invalid key");
+      }
 
-    if (snakeDirection === "left") {
-      if (snakePosition % width === 0) {
-        console.log("left side");
-        gameOver();
+      if (snakeDirection === "left") {
+        if (snakePosition % width === 0) {
+          console.log("left side");
+          gameOver();
+        }
+      } else if (snakeDirection === "right") {
+        if (snakePosition % width === width - 1) {
+          console.log("right side");
+          gameOver();
+        }
+      } else if (snakeDirection === "up") {
+        if (snakePosition <= width) {
+          console.log("up side");
+          gameOver();
+        }
+      } else if (snakeDirection === "down") {
+        if (snakePosition + width >= cellCount) {
+          console.log("down side");
+          gameOver();
+        }
+      } else {
+        // ? Check this
+        return;
       }
-    } else if (snakeDirection === "right") {
-      if (snakePosition % width === width - 1) {
-        console.log("right side");
-        gameOver();
-      }
-    } else if (snakeDirection === "up") {
-      if (snakePosition <= width) {
-        console.log("up side");
-        gameOver();
-      }
-    } else if (snakeDirection === "down") {
-      if (snakePosition + width >= cellCount) {
-        console.log("down side");
-        gameOver();
-      }
-    } else {
-      // ? Check this
-      return;
     }
   }
 
@@ -163,6 +178,7 @@ function init() {
 
     clearInterval(snakeTimer);
     clearInterval(appleTimer);
+    cells[applePosition].classList.remove("apple");
     let confirm = window.confirm(
       `Game over - you scored ${score}. Play again?`
     );
@@ -180,6 +196,8 @@ function init() {
   }
 
   //* Events
+
+  start.addEventListener("click", startGame);
   document.addEventListener("keyup", handleKeyUp);
 }
 
