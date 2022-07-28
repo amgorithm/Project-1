@@ -4,11 +4,12 @@ function init() {
   const cells = [];
   const start = document.querySelector("#start");
   const scoreDisplay = document.querySelector(".score");
+  const modal = document.querySelector(".modal");
 
   let snake = [2, 1, 0];
 
   // TODO: Variables
-  let snakeSpeed = 400;
+  let snakeSpeed = 800;
   let snakeTimer;
   let snakeDirection = "right";
   let snakePosition = 10;
@@ -39,6 +40,7 @@ function init() {
   function startGame() {
     gameStarted = true;
     if (gameStarted) {
+      grid.style.background = "#7A9D0F";
       appleTimer = setInterval(apple, 20000);
       snakeTimer = setInterval(moveSnake, snakeSpeed);
 
@@ -112,11 +114,11 @@ function init() {
       score += 100;
       scoreDisplay.textContent = score;
       console.log(snakeSpeed);
-      // clearInterval(moveSnake);
+      clearInterval(snakeTimer);
 
-      // snakeSpeed = snakeSpeed - 5;
+      snakeSpeed = snakeSpeed - 30;
 
-      // snakeTimer = setInterval(moveSnake, snakeSpeed);
+      snakeTimer = setInterval(moveSnake, snakeSpeed);
       apple();
     }
   }
@@ -172,6 +174,7 @@ function init() {
   // TODO: Game over
 
   function gameOver() {
+    modal.style.visibility = "visible";
     snake.forEach((element) => {
       cells[element].classList.remove("snakeImage");
     });
@@ -179,12 +182,12 @@ function init() {
     clearInterval(snakeTimer);
     clearInterval(appleTimer);
     cells[applePosition].classList.remove("apple");
-    let confirm = window.confirm(
-      `Game over - you scored ${score}. Play again?`
-    );
-    if (confirm) {
-      location.reload();
-    }
+    // let confirm = window.confirm(
+    //   `Game over - you scored ${score}. Play again?`
+    // );
+    // if (confirm) {
+    //   location.reload();
+    // }
   }
 
   function selfCrash() {
