@@ -6,14 +6,13 @@ function init() {
   const cell = document.querySelector(".cell");
   const start = document.querySelector("#start-btn");
   const modal = document.querySelector(".modal");
-  const highScoreDisplay = document.querySelector(".high-score");
   const scoreDisplay = document.querySelector(".score");
   const replayBtn = document.querySelector(".replay");
 
   let snake = [2, 1, 0];
 
   // TODO: Variables
-  let snakeSpeed = 400;
+  let snakeSpeed = 700;
   let snakeTimer;
   let snakeDirection = "right";
   let snakePosition = 10;
@@ -30,7 +29,6 @@ function init() {
   function createGrid() {
     for (let i = 0; i < cellCount; i++) {
       const cell = document.createElement("div");
-      // cell.textContent = i;
       cell.classList.add("cell");
 
       grid.append(cell);
@@ -47,13 +45,9 @@ function init() {
   function startGame() {
     gameStarted = true;
     if (gameStarted) {
-      // gridBackground.style.background = "none";
       grid.style.background = "#7A9D0F";
-
       appleTimer = setInterval(apple, 20000);
       snakeTimer = setInterval(moveSnake, snakeSpeed);
-
-      console.log("clicked");
     }
   }
 
@@ -119,15 +113,14 @@ function init() {
   function appleEaten() {
     if (applePosition === snakePosition) {
       console.log("same position");
-      // ? Double check this
-      snake.push(snake.length - 1 + 1);
+      snake.push(1);
       apple();
-      score += 100;
+      score += 7;
       scoreDisplay.innerText = score;
       console.log(snakeSpeed);
       clearInterval(snakeTimer);
 
-      snakeSpeed = snakeSpeed - 50;
+      snakeSpeed = snakeSpeed - 20;
 
       snakeTimer = setInterval(moveSnake, snakeSpeed);
     }
