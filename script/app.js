@@ -1,31 +1,36 @@
 function init() {
   // * Elements
   const grid = document.querySelector(".grid");
+  const gridBackground = document.querySelector(".bg-snake");
   const cells = [];
-  const start = document.querySelector("#start");
-  const scoreDisplay = document.querySelector(".score");
+  const cell = document.querySelector(".cell");
+  const start = document.querySelector("#start-btn");
   const modal = document.querySelector(".modal");
+  const highScoreDisplay = document.querySelector(".high-score");
+  const scoreDisplay = document.querySelector(".score");
+  const replayBtn = document.querySelector(".replay");
 
   let snake = [2, 1, 0];
 
   // TODO: Variables
-  let snakeSpeed = 800;
+  let snakeSpeed = 400;
   let snakeTimer;
   let snakeDirection = "right";
   let snakePosition = 10;
   let appleTimer;
   let applePosition = 10;
+
   let score = 0;
   let gameStarted = false;
 
   // TODO: Grid creation
-  const width = 10;
+  const width = 20;
   const cellCount = width * width;
 
   function createGrid() {
     for (let i = 0; i < cellCount; i++) {
       const cell = document.createElement("div");
-      cell.textContent = i;
+      // cell.textContent = i;
       cell.classList.add("cell");
 
       grid.append(cell);
@@ -37,15 +42,17 @@ function init() {
   // * Execution
   // TODO: newCell/Direction
 
+  // cells[applePosition].classList.remove("apple");
+
   function startGame() {
     gameStarted = true;
     if (gameStarted) {
+      // gridBackground.style.background = "none";
       grid.style.background = "#7A9D0F";
+
       appleTimer = setInterval(apple, 20000);
       snakeTimer = setInterval(moveSnake, snakeSpeed);
 
-      // apple();
-      // moveSnake();
       console.log("clicked");
     }
   }
@@ -55,6 +62,7 @@ function init() {
       if (snakePosition % width === 0) {
         gameOver();
       }
+
       return snake[0] - 1;
     } else if (snakeDirection === "right") {
       if (snakePosition % width === width - 1) {
@@ -86,12 +94,14 @@ function init() {
     let newCell = getNewCell();
 
     let tail = snake.pop();
+
     cells[tail].classList.remove("snakeImage");
 
     snake.unshift(newCell);
 
     cells[newCell].classList.add("snakeImage");
     snakePosition = newCell;
+
     appleEaten();
 
     selfCrash();
@@ -111,15 +121,15 @@ function init() {
       console.log("same position");
       // ? Double check this
       snake.push(snake.length - 1 + 1);
+      apple();
       score += 100;
-      scoreDisplay.textContent = score;
+      scoreDisplay.innerText = score;
       console.log(snakeSpeed);
       clearInterval(snakeTimer);
 
-      snakeSpeed = snakeSpeed - 30;
+      snakeSpeed = snakeSpeed - 50;
 
       snakeTimer = setInterval(moveSnake, snakeSpeed);
-      apple();
     }
   }
 
@@ -182,12 +192,10 @@ function init() {
     clearInterval(snakeTimer);
     clearInterval(appleTimer);
     cells[applePosition].classList.remove("apple");
-    // let confirm = window.confirm(
-    //   `Game over - you scored ${score}. Play again?`
-    // );
-    // if (confirm) {
-    //   location.reload();
-    // }
+  }
+
+  function playAgain() {
+    location.reload();
   }
 
   function selfCrash() {
@@ -202,6 +210,7 @@ function init() {
 
   start.addEventListener("click", startGame);
   document.addEventListener("keyup", handleKeyUp);
+  replayBtn.addEventListener("click", playAgain);
 }
 
 window.addEventListener("DOMContentLoaded", init);
