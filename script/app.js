@@ -9,20 +9,18 @@ function init() {
   const scoreDisplay = document.querySelector(".score");
   const replayBtn = document.querySelector(".replay");
 
+  // * Variables and snake
   let snake = [2, 1, 0];
-
-  // TODO: Variables
   let snakeSpeed = 700;
   let snakeTimer;
   let snakeDirection = "right";
   let snakePosition = 10;
   let appleTimer;
   let applePosition = 10;
-
   let score = 0;
   let gameStarted = false;
 
-  // TODO: Grid creation
+  // * Grid creation
   const width = 20;
   const cellCount = width * width;
 
@@ -38,8 +36,6 @@ function init() {
   createGrid();
 
   // * Execution
-  // TODO: newCell/Direction
-
   // cells[applePosition].classList.remove("apple");
 
   function startGame() {
@@ -78,7 +74,6 @@ function init() {
     }
   }
   getNewCell();
-  // TODO: Creating the snake
 
   function moveSnake() {
     snake.forEach((element) => {
@@ -100,8 +95,6 @@ function init() {
 
     selfCrash();
   }
-
-  // TODO: Apple
 
   function apple() {
     cells[applePosition].classList.remove("apple");
@@ -126,7 +119,6 @@ function init() {
     }
   }
 
-  // TODO: Keypress event
   function handleKeyUp(e) {
     if (gameStarted) {
       const key = e.keyCode;
@@ -168,13 +160,10 @@ function init() {
           gameOver();
         }
       } else {
-        // ? Check this
         return;
       }
     }
   }
-
-  // TODO: Game over
 
   function gameOver() {
     modal.style.visibility = "visible";
