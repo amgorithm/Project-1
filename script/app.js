@@ -11,7 +11,7 @@ function init() {
 
   // * Variables and snake
   let snake = [2, 1, 0];
-  let snakeSpeed = 700;
+  let snakeSpeed = 400;
   let snakeTimer;
   let snakeDirection = "right";
   let snakePosition = 10;
@@ -36,11 +36,11 @@ function init() {
   createGrid();
 
   // * Execution
-  // cells[applePosition].classList.remove("apple");
 
   function startGame() {
     gameStarted = true;
     if (gameStarted) {
+      apple();
       grid.style.background = "#7A9D0F";
       appleTimer = setInterval(apple, 20000);
       snakeTimer = setInterval(moveSnake, snakeSpeed);
@@ -101,7 +101,6 @@ function init() {
     applePosition = Math.floor(Math.random() * cells.length);
     cells[applePosition].classList.add("apple");
   }
-  apple();
 
   function appleEaten() {
     if (applePosition === snakePosition) {
