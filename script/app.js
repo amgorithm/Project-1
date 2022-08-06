@@ -36,6 +36,7 @@ function init() {
 
   function startGame() {
     if (!gameStarted) {
+      console.log("test");
       gameStarted = true;
       apple();
       grid.style.background = "#7A9D0F";
