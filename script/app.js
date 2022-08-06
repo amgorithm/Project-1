@@ -1,9 +1,7 @@
 function init() {
   // * Elements
   const grid = document.querySelector(".grid");
-  const gridBackground = document.querySelector(".bg-snake");
   const cells = [];
-  const cell = document.querySelector(".cell");
   const start = document.querySelector("#start-btn");
   const modal = document.querySelector(".modal");
   const scoreDisplay = document.querySelector(".score");
@@ -11,10 +9,10 @@ function init() {
 
   // * Variables and snake
   let snake = [2, 1, 0];
-  let snakeSpeed = 400;
+  let snakeSpeed = 600;
   let snakeTimer;
   let snakeDirection = "right";
-  let snakePosition = 10;
+  let snakePosition = 4;
   let appleTimer;
   let applePosition = 10;
   let score = 0;
@@ -28,7 +26,6 @@ function init() {
     for (let i = 0; i < cellCount; i++) {
       const cell = document.createElement("div");
       cell.classList.add("cell");
-
       grid.append(cell);
       cells.push(cell);
     }
@@ -38,8 +35,8 @@ function init() {
   // * Execution
 
   function startGame() {
-    gameStarted = true;
-    if (gameStarted) {
+    if (!gameStarted) {
+      gameStarted = true;
       apple();
       grid.style.background = "#7A9D0F";
       appleTimer = setInterval(apple, 20000);
@@ -52,7 +49,6 @@ function init() {
       if (snakePosition % width === 0) {
         gameOver();
       }
-
       return snake[0] - 1;
     } else if (snakeDirection === "right") {
       if (snakePosition % width === width - 1) {
@@ -73,7 +69,6 @@ function init() {
       return `Invalid`;
     }
   }
-  getNewCell();
 
   function moveSnake() {
     snake.forEach((element) => {
@@ -88,7 +83,10 @@ function init() {
 
     snake.unshift(newCell);
 
-    cells[newCell].classList.add("snakeImage");
+    if (cells[newCell]) {
+      cells[newCell].classList.add("snakeImage");
+    }
+
     snakePosition = newCell;
 
     appleEaten();
@@ -104,16 +102,12 @@ function init() {
 
   function appleEaten() {
     if (applePosition === snakePosition) {
-      console.log("same position");
       snake.push(1);
       apple();
       score += 7;
       scoreDisplay.innerText = score;
-      console.log(snakeSpeed);
       clearInterval(snakeTimer);
-
       snakeSpeed = snakeSpeed - 20;
-
       snakeTimer = setInterval(moveSnake, snakeSpeed);
     }
   }
@@ -135,48 +129,29 @@ function init() {
       } else if (key === down && snakeDirection !== "up") {
         snakeDirection = "down";
       } else {
-        console.log("Invalid key");
+        return `Invalid`;
       }
 
       if (snakeDirection === "left") {
         if (snakePosition % width === 0) {
-          console.log("left side");
           gameOver();
         }
       } else if (snakeDirection === "right") {
         if (snakePosition % width === width - 1) {
-          console.log("right side");
           gameOver();
         }
       } else if (snakeDirection === "up") {
         if (snakePosition <= width) {
-          console.log("up side");
           gameOver();
         }
       } else if (snakeDirection === "down") {
         if (snakePosition + width >= cellCount) {
-          console.log("down side");
           gameOver();
         }
       } else {
-        return;
+        return `Invalid`;
       }
     }
-  }
-
-  function gameOver() {
-    modal.style.visibility = "visible";
-    snake.forEach((element) => {
-      cells[element].classList.remove("snakeImage");
-    });
-
-    clearInterval(snakeTimer);
-    clearInterval(appleTimer);
-    cells[applePosition].classList.remove("apple");
-  }
-
-  function playAgain() {
-    location.reload();
   }
 
   function selfCrash() {
@@ -185,6 +160,21 @@ function init() {
     if (snakeBody.includes(snakePosition)) {
       gameOver();
     }
+  }
+
+  function gameOver() {
+    clearInterval(snakeTimer);
+    clearInterval(appleTimer);
+    snake.forEach((element) => {
+      cells[element].classList.remove("snakeImage");
+    });
+    cells[applePosition].classList.remove("apple");
+    modal.style.visibility = "visible";
+    scoreDisplay.innerText = score;
+  }
+
+  function playAgain() {
+    location.reload();
   }
 
   //* Events
