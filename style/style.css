@@ -20,7 +20,6 @@ section::before {
   content: "";
   position: absolute;
   width: 365px;
-  /* height: 911px; */
   background-image: url(../images/nokia.png);
   background-position: top;
   background-size: cover;
