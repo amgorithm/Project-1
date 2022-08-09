@@ -16,6 +16,10 @@ The technical requirements set on the game included the need to:
 6. Deploy your game online, where the rest of the world can access it
 7. Use semantic markup for HTML and CSS (adhere to best practices)
 
+## Deployment link
+
+The completed Nokia Snake game can be found here: https://amgorithm.github.io/Project-1/
+
 ## Plan
 
 Oh, I do love a good planning session. The first order of business was to categorise the game’s functionalities into four broad areas:
