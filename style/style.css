@@ -3,7 +3,7 @@
 }
 
 body {
-  background-image: url("/images/bg.jpeg");
+  background-image: url("../images/bg.jpeg");
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -49,19 +49,19 @@ section::before {
 }
 
 .snakeImage {
-  background-image: url("/images/snake-body.png");
+  background-image: url("../images/snake-body.png");
   background-repeat: no-repeat;
   background-size: contain;
 }
 
 .bg-snake {
-  background-image: url("/images/snake-bg.jpeg");
+  background-image: url("../images/snake-bg.jpeg");
   background-repeat: no-repeat;
   background-size: contain;
 }
 
 .apple {
-  background-image: url("/images/food.png");
+  background-image: url("../images/food.png");
   background-repeat: no-repeat;
   background-size: contain;
 }
