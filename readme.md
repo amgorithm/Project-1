@@ -2,7 +2,7 @@
 
 # Description
 
-For the first project on General Assembly’s Software Engineering Immersive course, we were assigned the task to build a game of our choosing. We had a two-week timeframe to put to test all of the HTML, CSS, and JavaScript learnt over a month and a half. I decided to go with a classic that I spent an inordinate amount of time playing as a child on a navy blue Nokia brick phone: Snake.
+For the first project on General Assembly’s Software Engineering Immersive course, we were assigned the task to build a game of our choosing. We had a two-week timeframe to test all of the HTML, CSS, and JavaScript learned over a month and a half. As it was a solo project, I decided to go with a classic that I spent an inordinate amount of time playing as a child on a navy blue Nokia: Snake.
 
 If you have never heard of the Snake game or you can’t quite remember it, here is a summary: a player guides a snake to eat an apple that will earn the player points, grow the Snake’s body and speeds up its movement. The purpose of the game is to stay alive as long as possible. If the Snake hits the wall or its body—it’s game over!
 
@@ -15,6 +15,15 @@ The technical requirements set on the game included the need to:
 5. Use Javascript for DOM manipulation
 6. Deploy your game online, where the rest of the world can access it
 7. Use semantic markup for HTML and CSS (adhere to best practices)
+
+###### Technologies used
+
+- HTML5
+- CSS
+- JavaScript
+- Diagrams.net
+- Git
+- GitHub
 
 ## Deployment link
 
@@ -43,7 +52,9 @@ The next section of the programme is the execution, the meat of the programme. B
 
 The Snake’s direction (i.e., where the Snake's head moves to) is determined under the next function getNewCell. If the Snake heads to a wall, the function invokes the gameOver function.
 
-The snake movement function (moveSnake) firstly uses a forEach to assign each element in the Snake array with a class that holds an image of the Snake’s body. The movement of the Snake is as follows:
+The snake movement function (moveSnake) firstly uses a forEach to assign each element in the Snake array with a class that holds an image of the Snake’s body.
+
+The movement of the Snake is as follows:
 
 1. Assign a newCell variable to the getNewCell function outlined above
 2. Remove the Snake’s tail using the array pop() method and remove the Snake class from the tail
@@ -60,7 +71,7 @@ The appleEaten function checks if the applePosition is equal to the snakePositio
 
 ![Apple Eaten Function](./images/apple-eaten-function.png)
 
-To check if the Snake has crashed into itself, the Snake body is firstly split from the Snake head using the slice array method. Using the includes array method on the Snake body, the Snake head is then checked if it exists within the body array. If so, the gameOver function is invoked.
+To check if the Snake has crashed into itself, the Snake body is firstly split from the Snake’s head using the slice array method. Using the includes array method on the Snake body, the Snake head is then checked if it exists within the body array. If so, the gameOver function is invoked.
 
 A keyup event for arrow-keys was used when changing the Snake head's direction. When either of the left, right, up or down arrow keys are pressed, the snakeDirection variable is updated to reflect the pressed arrow key. This function also calls the gameOver function if the pressed arrow key guides the Snake to a wall:
 
@@ -78,11 +89,15 @@ However, despite my extensive tweaking of the CSS and HTML, the application is o
 
 ## Wins
 
-I’m most pleased with handling the keyup event. It wasn't greatly challenging, but it did require a fair bit of fiddling to get right.
+I’m most pleased with handling the keyup event. It wasn't too challenging, but it did require a fair bit of fiddling to get right.
+
+I'm proud to have completed my first major project. Building a Snake game allowed me to consolidate and bring to life all of the HTML, CSS, and Javascript concepts I have learned over the last month. It's such a cool experience to create and play a game that I extensively played as a child.
 
 ## Key Learnings/Takeaways
 
-Completing this project has greatly raised my programming confidence. It feels like this game has added some more pieces to the jigsaw puzzle of programming, and I am now starting to see a picture emerge. I know I have many more pieces to add, but it is undeniable that the puzzle is becoming clearer as the days go by. I’m so very excited to keep playing.
+To go from a plan and feeling a little anxious about the whole process to creating a functional and nostalgic game that was actually fun to build has been such an awesome experience and programming confidence booster.
+
+It feels like this game has added some more pieces to the jigsaw puzzle of programming, and I am now starting to see a picture emerge. I know I have many more pieces to add, but it is undeniable that the puzzle is becoming clearer as the days go by. I’m so very excited to keep playing.
 
 ## Bugs
 
