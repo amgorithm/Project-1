@@ -48,7 +48,7 @@ To aid my planning, I used Todoist to keep track of my tasks for each section, a
 
 The programme begins with the elements and variables selected under the elements section. Included here is the Snake in the form of an array. This section also sets up the structure of the game in the form of a 20 by 20 grid. The grid is dynamically built using a for loop that pushes an array of divs into an empty cells array and appends them to a div container with a class of grid.
 
-The next section of the programme is the execution, the meat of the programme. Beginning the game is the startGame function which runs when the Nokia's start button is clicked. This function sets the gameStarted variable to true, randomly places an apple on the board every 20 seconds, and kicks off the Snake's movement to the right every 0.4 seconds.
+The next section of the programme is the execution, the meat of the programme. Beginning the game is the startGame function which runs when the Nokia's start button is clicked. This function sets the gameStarted variable to true, randomly places an apple on the board every 20 seconds, and kicks off the Snake's movement to the right every 0.6 seconds.
 
 The Snake’s direction (i.e., where the Snake's head moves to) is determined under the next function getNewCell. If the Snake heads to a wall, the function invokes the gameOver function.
 
