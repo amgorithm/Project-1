@@ -16,7 +16,7 @@ The technical requirements set on the game included the need to:
 6. Deploy your game online, where the rest of the world can access it
 7. Use semantic markup for HTML and CSS (adhere to best practices)
 
-###### Technologies used
+### Technologies used
 
 - HTML5
 - CSS
